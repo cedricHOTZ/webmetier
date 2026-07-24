@@ -275,13 +275,13 @@ export default function Contact({ setCurrentPage }: ContactProps) {
               <div className="bg-slate-900/50 border border-slate-800/60 rounded-2xl p-6">
                 <h3 style={{ fontFamily: 'Outfit, sans-serif' }} className="text-lg font-700 text-white mb-5">Nos coordonnées</h3>
                 <div className="space-y-4">
-                  <a href="mailto:contact@webmetier.fr" className="flex items-start gap-3 group">
+                  <a href="mailto:contact@domoweb.fr" className="flex items-start gap-3 group">
                     <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
                       <Mail className="w-4 h-4 text-cyan-400" />
                     </div>
                     <div>
                       <p className="text-xs text-slate-500 mb-0.5">Email</p>
-                      <p className="text-sm text-slate-200 group-hover:text-cyan-400 transition-colors">contact@webmetier.fr</p>
+                      <p className="text-sm text-slate-200 group-hover:text-cyan-400 transition-colors">contact@domoweb.fr</p>
                     </div>
                   </a>
                   <a href="tel:+33123456789" className="flex items-start gap-3 group">
@@ -354,7 +354,7 @@ export default function Contact({ setCurrentPage }: ContactProps) {
           <div className="mt-10 text-center">
             <p className="text-slate-400 text-sm mb-4">Votre question n'est pas listée ?</p>
             <a
-              href="mailto:contact@webmetier.fr"
+              href="mailto:contact@domoweb.fr"
               className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-600 transition-colors"
             >
               <Mail className="w-4 h-4" />

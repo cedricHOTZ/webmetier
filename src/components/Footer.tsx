@@ -99,7 +99,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-sm text-slate-400">
                 <Mail className="w-4 h-4 text-cyan-500 mt-0.5 shrink-0" />
-                <span>contact@webmetier.fr</span>
+                <span>contact@domoweb.fr</span>
               </li>
               <li className="flex items-start gap-3 text-sm text-slate-400">
                 <Phone className="w-4 h-4 text-cyan-500 mt-0.5 shrink-0" />

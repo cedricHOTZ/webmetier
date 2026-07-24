@@ -77,7 +77,7 @@ const modulesPrev = [
     sector: 'Garage & Auto',
     title: 'Gestion véhicules',
     description:
-      'e module transforme un simple site vitrine en véritable outil commercial, en réduisant la dépendance aux plateformes tierces et en captant des prospects même quand le véhicule qu\'ils cherchent n\'est pas encore en stock (alertes email)',
+      'Ce module transforme un simple site vitrine en véritable outil commercial, en réduisant la dépendance aux plateformes tierces et en captant des prospects même quand le véhicule qu\'ils cherchent n\'est pas encore en stock (alertes email)',
     features: ['Fiche détail complète', 'Catalogue professionnel', 'Favoris sans compte', 'Alertes automatiques'],
     color: 'from-sky-500/15 to-blue-500/10',
     accent: 'text-sky-400',
