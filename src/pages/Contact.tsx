@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Mail, Phone, MapPin, Send, ChevronDown, ChevronUp, CheckCircle, Clock, MessageSquare, ChefHat, Scissors,CalendarCheck , Car,PackageCheck ,BedDouble , Puzzle, Globe,FileSignature , ShoppingCart } from 'lucide-react'
 
 interface ContactProps {
@@ -78,6 +79,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function Contact({ setCurrentPage }: ContactProps) {
   const [selectedModules, setSelectedModules] = useState<string[]>([])
+   const { executeRecaptcha } = useGoogleReCaptcha();
   const [formData, setFormData] = useState({
     name: '', email: '', company: '', phone: '', budget: '', message: '',
   })
@@ -89,28 +91,41 @@ export default function Contact({ setCurrentPage }: ContactProps) {
     )
   }
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault()
+const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
 
-  const form = e.currentTarget
+    const form = event.currentTarget;
 
-  const data = new FormData(form)
-  data.append('modules', selectedModules.join(', '))
+    if (!executeRecaptcha) {
+      alert('reCAPTCHA n’est pas encore chargé.');
+      return;
+    }
 
-  const response = await fetch('https://formspree.io/f/xdaqwjel', {
-    method: 'POST',
-    body: data,
-    headers: {
-      Accept: 'application/json',
-    },
-  })
+    const token = await executeRecaptcha('contact');
 
-  if (response.ok) {
-    setSent(true)
-  } else {
-    alert("Erreur lors de l'envoi du formulaire")
-  }
-}
+    const formData = new FormData(form);
+    formData.append('g-recaptcha-response', token);
+
+    const response = await fetch(
+      'https://formspree.io/f/xdaqwjel',
+      {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      }
+    );
+
+    if (response.ok) {
+      alert('Message envoyé avec succès !');
+      form.reset();
+    } else {
+      alert('Une erreur est survenue.');
+    }
+  };
   return (
     <div className="bg-slate-950 text-slate-100">
       {/* ─── HERO ─── */}
