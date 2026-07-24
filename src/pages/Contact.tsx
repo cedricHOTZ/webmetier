@@ -185,7 +185,7 @@ const handleSubmit = async (
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form  method="POST" onSubmit={handleSubmit} className="space-y-5">
                   {/* Modules selector */}
                   <div>
                     <label className="block text-sm font-600 text-slate-300 mb-3">
