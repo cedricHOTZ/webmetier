@@ -27,7 +27,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               L'agence web qui pense à votre métier. Des modules sur mesure pour chaque secteur d'activité.
             </p>
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               {['in', 'tw', 'fb'].map((s) => (
                 <div
                   key={s}
@@ -36,7 +36,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
                   {s}
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Services */}
