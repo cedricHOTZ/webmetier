@@ -89,29 +89,28 @@ export default function Contact({ setCurrentPage }: ContactProps) {
     )
   }
 
- const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
 
-  const subject = encodeURIComponent(
-    `Demande de contact - ${formData.name}`
-  )
+  const form = e.currentTarget
 
-  const body = encodeURIComponent(`
-Nom : ${formData.name}
-Email : ${formData.email}
-Entreprise : ${formData.company}
-Téléphone : ${formData.phone}
-Budget : ${formData.budget}
-Modules : ${selectedModules.join(', ') || 'Aucun'}
+  const data = new FormData(form)
+  data.append('modules', selectedModules.join(', '))
 
-Message :
-${formData.message}
-  `)
+  const response = await fetch('https://formspree.io/f/xdaqwjel', {
+    method: 'POST',
+    body: data,
+    headers: {
+      Accept: 'application/json',
+    },
+  })
 
-  window.location.href =
-    `mailto:contact@domoweb.fr?subject=${subject}&body=${body}`
+  if (response.ok) {
+    setSent(true)
+  } else {
+    alert("Erreur lors de l'envoi du formulaire")
+  }
 }
-
   return (
     <div className="bg-slate-950 text-slate-100">
       {/* ─── HERO ─── */}
@@ -201,6 +200,7 @@ ${formData.message}
                       <label className="block text-xs font-600 text-slate-400 mb-2 uppercase tracking-wide">Votre nom *</label>
                       <input
                         type="text"
+                        name='nom'
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -212,6 +212,7 @@ ${formData.message}
                       <label className="block text-xs font-600 text-slate-400 mb-2 uppercase tracking-wide">Email *</label>
                       <input
                         type="email"
+                        name='email'
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -226,6 +227,7 @@ ${formData.message}
                       <label className="block text-xs font-600 text-slate-400 mb-2 uppercase tracking-wide">Entreprise</label>
                       <input
                         type="text"
+                        name='entreprise'
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         placeholder="Mon Restaurant"
@@ -236,6 +238,7 @@ ${formData.message}
                       <label className="block text-xs font-600 text-slate-400 mb-2 uppercase tracking-wide">Téléphone</label>
                       <input
                         type="tel"
+                        name='phone'
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="06 12 34 56 78"
@@ -265,6 +268,7 @@ ${formData.message}
                     <textarea
                       required
                       rows={5}
+                      name='message'
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Parlez-nous de votre activité, de vos besoins, des problèmes que vous souhaitez résoudre..."
