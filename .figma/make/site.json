@@ -1,0 +1,8 @@
+{
+  "title": "WebMétier",
+  "description": "Agence de création de sites web",
+  "language": "fr",
+  "robots": {
+    "index": true
+  }
+}
