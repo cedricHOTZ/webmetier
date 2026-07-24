@@ -90,9 +90,24 @@ export default function Contact({ setCurrentPage }: ContactProps) {
   }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSent(true)
-  }
+  e.preventDefault()
+
+  const subject = encodeURIComponent(`Demande de contact - ${formData.name}`)
+
+  const body = encodeURIComponent(`
+Nom : ${formData.name}
+Email : ${formData.email}
+Entreprise : ${formData.company}
+Téléphone : ${formData.phone}
+Budget : ${formData.budget}
+Modules : ${selectedModules.join(', ')}
+
+Message :
+${formData.message}
+  `)
+
+  window.location.href = `mailto:contact@domoweb.fr?subject=${subject}&body=${body}`
+}
 
   return (
     <div className="bg-slate-950 text-slate-100">
