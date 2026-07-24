@@ -77,8 +77,8 @@ const modulesPrev = [
     sector: 'Garage & Auto',
     title: 'Gestion véhicules',
     description:
-      'Fiches véhicules, listing des véhicules, liste d\'envie.',
-    features: ['Fiches véhicules', 'Historique entretiens', 'Rappels révision', 'Devis en ligne'],
+      'e module transforme un simple site vitrine en véritable outil commercial, en réduisant la dépendance aux plateformes tierces et en captant des prospects même quand le véhicule qu'ils cherchent n'est pas encore en stock (alertes email)',
+    features: ['Fiche détail complète', 'Catalogue professionnel', 'Favoris sans compte', 'Alertes automatiques'],
     color: 'from-sky-500/15 to-blue-500/10',
     accent: 'text-sky-400',
     accentBorder: 'border-sky-500/20',
