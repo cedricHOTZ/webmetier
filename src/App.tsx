@@ -9,6 +9,7 @@ import Portfolio from './pages/Portfolio'
 import Contact from './pages/Contact'
 import Legal from './pages/legal'
 import Sitemap from './pages/Sitemap'
+import NotFound from './pages/NotFound'
 import { routes } from './seo.mjs'
 
 function ScrollToTop() {
@@ -21,7 +22,10 @@ function ScrollToTop() {
 
 function RouteSeo() {
   const { pathname } = useLocation()
-  const route = routes.find((r) => r.path === pathname) ?? routes[0]
+  const route = routes.find((r) => r.path === pathname)
+  if (!route) {
+    return <Seo title="Page introuvable — WebMétier" description="La page demandée n'existe pas." noindex />
+  }
   return <Seo title={route.title} description={route.description} />
 }
 
@@ -39,6 +43,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/sitemap" element={<Sitemap />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

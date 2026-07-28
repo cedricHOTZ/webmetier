@@ -3,9 +3,10 @@ import { useEffect } from 'react'
 interface SeoProps {
   title: string
   description: string
+  noindex?: boolean
 }
 
-export default function Seo({ title, description }: SeoProps) {
+export default function Seo({ title, description, noindex = false }: SeoProps) {
   useEffect(() => {
     document.title = title
 
@@ -22,7 +23,8 @@ export default function Seo({ title, description }: SeoProps) {
     setMeta('meta[name="description"]', 'name', 'description', description)
     setMeta('meta[property="og:title"]', 'property', 'og:title', title)
     setMeta('meta[property="og:description"]', 'property', 'og:description', description)
-  }, [title, description])
+    setMeta('meta[name="robots"]', 'name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow')
+  }, [title, description, noindex])
 
   return null
 }

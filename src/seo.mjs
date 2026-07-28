@@ -1,3 +1,5 @@
+export const siteUrl = 'https://www.domoweb.fr'
+
 export const routes = [
   {
     path: '/',
