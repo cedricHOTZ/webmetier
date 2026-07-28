@@ -4,5 +4,8 @@
   "language": "fr",
   "robots": {
     "index": true
+  },
+  "customScripts": {
+    "headStart": "<script>\n  window.axeptioSettings = {\n    clientId: \"653bbb52cfb2c195627683e4\",\n    cookiesVersion: \"fr-27-10-2023\",\n  };\n\n  (function(d, s) {\n    var t = d.getElementsByTagName(s)[0], e = d.createElement(s);\n    e.async = true; e.src = \"//static.axept.io/sdk.js\";\n    t.parentNode.insertBefore(e, t);\n  })(document, \"script\");\n</script>"
   }
 }

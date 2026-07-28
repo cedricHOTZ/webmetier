@@ -1,9 +1,6 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Star, ExternalLink, ChefHat, Scissors, Car, ShoppingCart, Globe } from 'lucide-react'
-
-interface PortfolioProps {
-  setCurrentPage: (page: string) => void
-}
 
 const filters = [
   { id: 'all', label: 'Tous' },
@@ -175,12 +172,10 @@ const accentClasses: Record<string, { text: string; bg: string; border: string }
   emerald: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
 }
 
-export default function Portfolio({ setCurrentPage }: PortfolioProps) {
+export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all')
-  const navigate = (page: string) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const routerNavigate = useNavigate()
+  const navigate = (page: string) => routerNavigate(page === 'home' ? '/' : `/${page}/`)
 
   const filtered = activeFilter === 'all' ? projects : projects.filter((p) => p.category === activeFilter)
 

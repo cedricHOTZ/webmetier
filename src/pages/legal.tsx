@@ -1,23 +1,20 @@
+import { Link } from 'react-router-dom'
 import { ArrowLeft, Scale } from 'lucide-react'
 
-interface LegalProps {
-  setCurrentPage: (page: string) => void
-}
-
-export default function Legal({ setCurrentPage }: LegalProps) {
+export default function Legal() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300">
       <section className="relative overflow-hidden border-b border-slate-800/60">
         <div className="absolute inset-0 hero-grid opacity-30" />
 
         <div className="relative max-w-5xl mx-auto px-6 lg:px-8 py-24">
-          <button
-            onClick={() => setCurrentPage('home')}
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 mb-10 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Retour à l'accueil
-          </button>
+          </Link>
 
           <div className="flex items-center gap-4 mb-6">
             <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
@@ -137,10 +134,18 @@ export default function Legal({ setCurrentPage }: LegalProps) {
             </p>
 
             <p className="mt-4">
-              Lorsque cela est nécessaire, votre consentement est recueilli avant
-              le dépôt de cookies non essentiels. Vous pouvez modifier vos
-              préférences depuis les paramètres de votre navigateur ou le module
-              de gestion des cookies du site.
+              Le site utilise Axeptio, une plateforme de gestion du consentement
+              (CMP), pour recueillir votre consentement avant le dépôt de cookies
+              non essentiels, conformément à la réglementation applicable
+              (RGPD, directive ePrivacy). Un bandeau de consentement s'affiche
+              lors de votre première visite et vous permet d'accepter, de refuser
+              ou de personnaliser les cookies utilisés par catégorie.
+            </p>
+
+            <p className="mt-4">
+              Vous pouvez modifier vos préférences à tout moment depuis le module
+              de gestion des cookies du site (icône dédiée en bas de page) ou
+              depuis les paramètres de votre navigateur.
             </p>
           </LegalSection>
 

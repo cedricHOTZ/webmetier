@@ -1,8 +1,5 @@
+import { useNavigate } from 'react-router-dom'
 import { CheckCircle, ChefHat, Scissors, Car, Puzzle, ArrowRight, Calendar, Clock, Bell, Star, BarChart3, MessageSquare, Wrench, FileText, History, Users, Package, Zap } from 'lucide-react'
-
-interface ModulesProps {
-  setCurrentPage: (page: string) => void
-}
 
 const restaurantFeatures = [
   { icon: Calendar, text: 'Calendrier de réservations en temps réel' },
@@ -262,11 +259,9 @@ function ModuleMockupGarage() {
   )
 }
 
-export default function Modules({ setCurrentPage }: ModulesProps) {
-  const navigate = (page: string) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+export default function Modules() {
+  const routerNavigate = useNavigate()
+  const navigate = (page: string) => routerNavigate(page === 'home' ? '/' : `/${page}/`)
 
   return (
     <div className="bg-slate-950 text-slate-100">

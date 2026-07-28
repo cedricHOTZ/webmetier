@@ -1,8 +1,5 @@
+import { useNavigate } from 'react-router-dom'
 import { ArrowRight, CheckCircle, ChefHat, Scissors, Car, Globe, ShoppingCart, Puzzle, Star, TrendingUp, Users, Zap, Clock, Shield, ArrowUpRight } from 'lucide-react'
-
-interface HomeProps {
-  setCurrentPage: (page: string) => void
-}
 
 const stats = [
   { value: '120+', label: 'Clients satisfaits', icon: Users },
@@ -120,11 +117,9 @@ const values = [
   { icon: Shield, title: 'Sécurisé', text: 'Hébergement haute disponibilité, sauvegardes quotidiennes, RGPD.' },
 ]
 
-export default function Home({ setCurrentPage }: HomeProps) {
-  const navigate = (page: string) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+export default function Home() {
+  const routerNavigate = useNavigate()
+  const navigate = (page: string) => routerNavigate(page === 'home' ? '/' : `/${page}/`)
 
   return (
     <div className="bg-slate-950 text-slate-100">

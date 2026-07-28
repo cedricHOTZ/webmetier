@@ -1,19 +1,16 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Code2, ChevronDown } from 'lucide-react'
 
-interface NavbarProps {
-  currentPage: string
-  setCurrentPage: (page: string) => void
-}
-
 const pages = [
-  { id: 'home', label: 'Accueil' },
-  { id: 'modules', label: 'Modules Métier' },
-  { id: 'portfolio', label: 'Réalisations' },
-  { id: 'contact', label: 'Contact' },
+  { path: '/', label: 'Accueil' },
+  { path: '/modules/', label: 'Modules Métier' },
+  { path: '/portfolio/', label: 'Réalisations' },
+  { path: '/contact/', label: 'Contact' },
 ]
 
-export default function Navbar({ currentPage, setCurrentPage }: NavbarProps) {
+export default function Navbar() {
+  const { pathname } = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -23,11 +20,7 @@ export default function Navbar({ currentPage, setCurrentPage }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navigate = (page: string) => {
-    setCurrentPage(page)
-    setMenuOpen(false)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const closeMenu = () => setMenuOpen(false)
 
   return (
     <nav
@@ -40,10 +33,7 @@ export default function Navbar({ currentPage, setCurrentPage }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 py-4">
           {/* Logo */}
-          <button
-            onClick={() => navigate('home')}
-            className="flex items-center gap-2.5 group"
-          >
+          <Link to="/" onClick={closeMenu} className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-cyan-500/30 transition-shadow">
               <Code2 className="w-5 h-5 text-white" />
             </div>
@@ -53,34 +43,34 @@ export default function Navbar({ currentPage, setCurrentPage }: NavbarProps) {
             >
               Web<span className="gradient-text">Métier</span>
             </span>
-          </button>
+          </Link>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
             {pages.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => navigate(p.id)}
+              <Link
+                key={p.path}
+                to={p.path}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  currentPage === p.id
+                  pathname === p.path
                     ? 'text-cyan-400 bg-cyan-400/10'
                     : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
                 }`}
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {p.label}
-              </button>
+              </Link>
             ))}
           </div>
 
           {/* CTA + mobile burger */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate('contact')}
+            <Link
+              to="/contact/"
               className="hidden md:flex btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold text-white shadow-lg"
             >
               <span>Démarrer un projet</span>
-            </button>
+            </Link>
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -100,24 +90,26 @@ export default function Navbar({ currentPage, setCurrentPage }: NavbarProps) {
       >
         <div className="px-6 pb-4 pt-2 bg-slate-950/98 backdrop-blur-xl border-t border-slate-800/50 space-y-1">
           {pages.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => navigate(p.id)}
-              className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                currentPage === p.id
+            <Link
+              key={p.path}
+              to={p.path}
+              onClick={closeMenu}
+              className={`block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                pathname === p.path
                   ? 'text-cyan-400 bg-cyan-400/10'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
               {p.label}
-            </button>
+            </Link>
           ))}
-          <button
-            onClick={() => navigate('contact')}
-            className="w-full btn-primary px-4 py-3 rounded-lg text-sm font-semibold text-white mt-2"
+          <Link
+            to="/contact/"
+            onClick={closeMenu}
+            className="block w-full text-center btn-primary px-4 py-3 rounded-lg text-sm font-semibold text-white mt-2"
           >
             <span>Démarrer un projet</span>
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

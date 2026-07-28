@@ -1,29 +1,21 @@
+import { Link } from 'react-router-dom'
 import { Code2, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react'
 
-interface FooterProps {
-  setCurrentPage: (page: string) => void
-}
-
-export default function Footer({ setCurrentPage }: FooterProps) {
-  const navigate = (page: string) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
+export default function Footer() {
   return (
     <footer className="bg-slate-950 border-t border-slate-800/60">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <button onClick={() => navigate('home')} className="flex items-center gap-2.5 mb-4">
+            <Link to="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                 <Code2 className="w-5 h-5 text-white" />
               </div>
               <span style={{ fontFamily: 'Outfit, sans-serif' }} className="text-xl font-700">
                 Web<span className="gradient-text">Métier</span>
               </span>
-            </button>
+            </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               L'agence web qui pense à votre métier. Des modules sur mesure pour chaque secteur d'activité.
             </p>
@@ -46,20 +38,20 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: 'Sites Vitrine', page: 'home' },
-                { label: 'E-commerce', page: 'home' },
-                { label: 'Modules Métier', page: 'modules' },
-                { label: 'Nos Réalisations', page: 'portfolio' },
-                { label: 'Maintenance & Support', page: 'contact' },
+                { label: 'Sites Vitrine', path: '/' },
+                { label: 'E-commerce', path: '/' },
+                { label: 'Modules Métier', path: '/modules/' },
+                { label: 'Nos Réalisations', path: '/portfolio/' },
+                { label: 'Maintenance & Support', path: '/contact/' },
               ].map((item) => (
                 <li key={item.label}>
-                  <button
-                    onClick={() => navigate(item.page)}
+                  <Link
+                    to={item.path}
                     className="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-1 group"
                   >
                     <span>{item.label}</span>
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,13 +71,13 @@ export default function Footer({ setCurrentPage }: FooterProps) {
                 'Module sur mesure',
               ].map((item) => (
                 <li key={item}>
-                  <button
-                    onClick={() => navigate('modules')}
+                  <Link
+                    to="/modules/"
                     className="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-1 group"
                   >
                     <span>{item}</span>
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -119,17 +111,16 @@ export default function Footer({ setCurrentPage }: FooterProps) {
           </p>
           <div className="flex gap-6">
   {[
-    { label: 'Mentions légales & Politique de confidentialité', page: 'legal' },
- 
-    
+    { label: 'Plan du site', path: '/sitemap/' },
+    { label: 'Mentions légales & Politique de confidentialité', path: '/legal/' },
   ].map((item) => (
-    <button
+    <Link
       key={item.label}
-      onClick={() => navigate(item.page)}
+      to={item.path}
       className="text-slate-500 hover:text-slate-300 text-xs transition-colors"
     >
       {item.label}
-    </button>
+    </Link>
   ))}
 </div>
         </div>

@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, ChevronDown, ChevronUp, CheckCircle, Clock, MessageSquare, ChefHat, Scissors,CalendarCheck , Car,PackageCheck ,BedDouble , Puzzle, Globe,FileSignature , ShoppingCart } from 'lucide-react'
 
-interface ContactProps {
-  setCurrentPage: (page: string) => void
-}
-
 const faqs = [
   {
     q: "Combien de temps faut-il pour développer un module métier sur mesure ?",
@@ -76,7 +72,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   )
 }
 
-export default function Contact({ setCurrentPage }: ContactProps) {
+export default function Contact() {
   const [selectedModules, setSelectedModules] = useState<string[]>([])
   const [formData, setFormData] = useState({
     name: '', email: '', company: '', phone: '', budget: '', message: '',
