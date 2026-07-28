@@ -25,23 +25,27 @@ async function main() {
   const { render } = await import(pathToFileURL(path.join(root, ssrOutDir, entryFile)))
   const template = await readFile(path.join(root, 'dist/index.html'), 'utf-8')
 
-  for (const route of routes) {
-    const appHtml = render(route.path)
-
+  const renderPage = (url, { title, description }) => {
+    const appHtml = render(url)
     let html = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
-    html = html.replace(/<title>.*?<\/title>/s, `<title>${route.title}</title>`)
+    html = html.replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)
     html = html.replace(
       /<meta name="description" content="[^"]*">/,
-      `<meta name="description" content="${route.description}">`,
+      `<meta name="description" content="${description}">`,
     )
     html = html.replace(
       /<meta property="og:title" content="[^"]*">/,
-      `<meta property="og:title" content="${route.title}">`,
+      `<meta property="og:title" content="${title}">`,
     )
     html = html.replace(
       /<meta property="og:description" content="[^"]*">/,
-      `<meta property="og:description" content="${route.description}">`,
+      `<meta property="og:description" content="${description}">`,
     )
+    return html
+  }
+
+  for (const route of routes) {
+    let html = renderPage(route.path, route)
     html = html.replace(
       '</title>',
       `</title>\n    <link rel="canonical" href="${siteUrl}${route.path}">`,
@@ -52,6 +56,16 @@ async function main() {
     await writeFile(path.join(outDir, 'index.html'), html)
     console.log(`prerendered ${route.path}`)
   }
+
+  // Vercel (and most static hosts) automatically serve dist/404.html for any
+  // URL that doesn't match a real file, instead of their own branded error page.
+  let notFoundHtml = renderPage('/this-page-does-not-exist', {
+    title: 'Page introuvable — WebMétier',
+    description: "La page demandée n'existe pas ou a été déplacée.",
+  })
+  notFoundHtml = notFoundHtml.replace('</title>', '</title>\n    <meta name="robots" content="noindex, nofollow">')
+  await writeFile(path.join(root, 'dist/404.html'), notFoundHtml)
+  console.log('generated 404.html')
 
   await writeFile(path.join(root, 'dist/sitemap.xml'), buildSitemap())
   console.log('generated sitemap.xml')
