@@ -1,14 +1,7 @@
 import { Link } from 'react-router-dom'
-import { ChefHat, Scissors, Car, Globe, Sparkles, ArrowRight, Calendar, Clock } from 'lucide-react'
+import { ArrowRight, Calendar, Clock } from 'lucide-react'
 import { blogPosts } from '../seo.mjs'
-
-const categoryStyle: Record<string, { icon: typeof ChefHat; text: string; bg: string; border: string }> = {
-  Restauration: { icon: ChefHat, text: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/20' },
-  'Coiffure & Beauté': { icon: Scissors, text: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
-  Automobile: { icon: Car, text: 'text-sky-400', bg: 'bg-sky-500/10', border: 'border-sky-500/20' },
-  'Stratégie digitale': { icon: Globe, text: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20' },
-  'Notre agence': { icon: Sparkles, text: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
-}
+import { blogCategoryStyle } from '../blogCategoryStyles'
 
 export default function Blog() {
   return (
@@ -34,7 +27,7 @@ export default function Blog() {
       <main className="max-w-5xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogPosts.map((post) => {
-            const style = categoryStyle[post.category]
+            const style = blogCategoryStyle[post.category]
             const Icon = style.icon
             const formattedDate = new Date(post.date).toLocaleDateString('fr-FR', {
               day: 'numeric',

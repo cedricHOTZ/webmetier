@@ -1,5 +1,9 @@
-import { useNavigate } from 'react-router-dom'
-import { ArrowRight, CheckCircle, ChefHat, Scissors, Car, Globe, ShoppingCart, Puzzle, Star, TrendingUp, Users, Zap, Clock, Shield, ArrowUpRight } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowRight, CheckCircle, ChefHat, Scissors, Car, Globe, ShoppingCart, Puzzle, Star, TrendingUp, Users, Zap, Clock, Shield, ArrowUpRight, Calendar } from 'lucide-react'
+import { blogPosts } from '../seo.mjs'
+import { blogCategoryStyle } from '../blogCategoryStyles'
+
+const latestPosts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 3)
 
 const stats = [
   { value: '120+', label: 'Clients satisfaits', icon: Users },
@@ -458,6 +462,66 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── BLOG ─── */}
+      <section className="py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+            <div>
+              <span className="section-tag">Blog</span>
+              <h2
+                style={{ fontFamily: 'Outfit, sans-serif' }}
+                className="text-3xl lg:text-4xl font-800 tracking-tight mt-2"
+              >
+                Derniers articles
+              </h2>
+            </div>
+            <Link
+              to="/blog/"
+              className="inline-flex items-center gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              Voir tous les articles
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {latestPosts.map((post) => {
+              const style = blogCategoryStyle[post.category]
+              const Icon = style.icon
+              const formattedDate = new Date(post.date).toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })
+
+              return (
+                <Link
+                  key={post.path}
+                  to={post.path}
+                  className="card-hover flex flex-col bg-slate-900/50 border border-slate-800/60 rounded-2xl p-6 group"
+                >
+                  <div className={`w-11 h-11 rounded-xl ${style.bg} border ${style.border} flex items-center justify-center mb-5`}>
+                    <Icon className={`w-5 h-5 ${style.text}`} />
+                  </div>
+                  <span className={`text-xs font-600 ${style.text} mb-2`}>{post.category}</span>
+                  <h3
+                    style={{ fontFamily: 'Outfit, sans-serif' }}
+                    className="text-lg font-700 text-white mb-3 group-hover:text-cyan-400 transition-colors"
+                  >
+                    {post.heading}
+                  </h3>
+                  <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">{post.excerpt}</p>
+                  <span className="flex items-center gap-1.5 text-xs text-slate-500 pt-4 border-t border-slate-800/60">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {formattedDate}
+                  </span>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

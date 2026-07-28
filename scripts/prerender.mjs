@@ -27,8 +27,8 @@ async function main() {
   const { render } = await import(pathToFileURL(path.join(root, ssrOutDir, entryFile)))
   const template = await readFile(path.join(root, 'dist/index.html'), 'utf-8')
 
-  const renderPage = (url, { title, description }) => {
-    const appHtml = render(url)
+  const renderPage = async (url, { title, description }) => {
+    const appHtml = await render(url)
     let html = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
     html = html.replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)
     html = html.replace(
@@ -47,7 +47,7 @@ async function main() {
   }
 
   for (const route of allPages) {
-    let html = renderPage(route.path, route)
+    let html = await renderPage(route.path, route)
     html = html.replace(
       '</title>',
       `</title>\n    <link rel="canonical" href="${siteUrl}${route.path}">`,
@@ -65,7 +65,7 @@ async function main() {
 
   // Vercel (and most static hosts) automatically serve dist/404.html for any
   // URL that doesn't match a real file, instead of their own branded error page.
-  let notFoundHtml = renderPage('/this-page-does-not-exist', {
+  let notFoundHtml = await renderPage('/this-page-does-not-exist', {
     title: 'Page introuvable — WebMétier',
     description: "La page demandée n'existe pas ou a été déplacée.",
   })
