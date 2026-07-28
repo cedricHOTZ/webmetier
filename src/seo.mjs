@@ -88,4 +88,28 @@ export const blogPosts = [
     date: '2026-07-08',
     readTime: '6 min',
   },
+  {
+    path: '/blog/pourquoi-avoir-un-site-internet/',
+    title: 'Pourquoi avoir un site internet en 2026 ? — WebMétier',
+    heading: 'Pourquoi avoir un site internet pour votre entreprise ?',
+    description:
+      "Visibilité, crédibilité, disponibilité 24/7 : pourquoi un site internet est devenu indispensable pour une entreprise, même locale, et comment bien le choisir.",
+    excerpt:
+      "Encore hésitant à créer un site pour votre activité ? Voici pourquoi un site internet fait souvent la différence, même pour un commerce ou une activité locale.",
+    category: 'Stratégie digitale',
+    date: '2026-07-22',
+    readTime: '4 min',
+  },
+  {
+    path: '/blog/ce-que-webmetier-vous-apporte/',
+    title: 'Ce que WebMétier vous apporte : expertise et IA — WebMétier',
+    heading: 'Ce que WebMétier vous apporte',
+    description:
+      "Développement sur mesure, accompagnement personnalisé et outils d'intelligence artificielle : comment WebMétier conçoit des sites et modules métier avec sérieux et efficacité.",
+    excerpt:
+      "Professionnalisme, écoute et intelligence artificielle : voici comment nous concevons vos sites et modules métier, du premier échange à la mise en ligne.",
+    category: 'Notre agence',
+    date: '2026-07-27',
+    readTime: '4 min',
+  },
 ]

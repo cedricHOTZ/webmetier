@@ -13,6 +13,8 @@ import Blog from './pages/Blog'
 import ReservationRestaurant from './pages/blog/ReservationRestaurant'
 import PlanningCoiffeur from './pages/blog/PlanningCoiffeur'
 import GestionGarage from './pages/blog/GestionGarage'
+import PourquoiSiteInternet from './pages/blog/PourquoiSiteInternet'
+import CeQueWebMetierApporte from './pages/blog/CeQueWebMetierApporte'
 import NotFound from './pages/NotFound'
 import { routes, blogPosts } from './seo.mjs'
 
@@ -53,6 +55,8 @@ export default function App() {
           <Route path="/blog/reservation-restaurant-en-ligne" element={<ReservationRestaurant />} />
           <Route path="/blog/planning-rdv-coiffeur" element={<PlanningCoiffeur />} />
           <Route path="/blog/gestion-garage-automobile" element={<GestionGarage />} />
+          <Route path="/blog/pourquoi-avoir-un-site-internet" element={<PourquoiSiteInternet />} />
+          <Route path="/blog/ce-que-webmetier-vous-apporte" element={<CeQueWebMetierApporte />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
