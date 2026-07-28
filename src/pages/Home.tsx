@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowRight, CheckCircle, ChefHat, Scissors, Car, Globe, ShoppingCart, Puzzle, Star, TrendingUp, Users, Zap, Clock, Shield, ArrowUpRight, Calendar } from 'lucide-react'
+import { ArrowRight, CheckCircle, ChefHat, Scissors, Car, Globe, ShoppingCart, Puzzle, Star, TrendingUp, Users, Zap, Clock, Shield, ArrowUpRight, Calendar, Search } from 'lucide-react'
 import { blogPosts } from '../seo.mjs'
 import { blogCategoryStyle } from '../blogCategoryStyles'
 
@@ -112,6 +112,24 @@ const process = [
     title: 'Formation & lancement',
     description:
       "Mise en ligne, formation avec votre outil. Vous êtes autonomes dès le départ.",
+  },
+]
+
+const aiFeatures = [
+  {
+    icon: Zap,
+    title: 'Développement plus rapide',
+    text: "Nous nous appuyons sur l'intelligence artificielle pour prototyper et développer plus vite, sans sacrifier la qualité du résultat.",
+  },
+  {
+    icon: Search,
+    title: 'Contenu et SEO optimisés',
+    text: 'Structure technique, contenus et référencement pensés dès la conception pour que votre site soit vraiment trouvé sur Google.',
+  },
+  {
+    icon: Users,
+    title: 'Toujours un humain aux commandes',
+    text: "L'IA nous fait gagner du temps, elle ne remplace jamais l'échange avec vous ni notre expertise sur votre métier.",
   },
 ]
 
@@ -443,6 +461,52 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── IA ─── */}
+      <section className="py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="section-tag block mb-4">Notre approche</span>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif' }} className="text-4xl lg:text-5xl font-800 tracking-tight mb-5">
+              L'expertise humaine,
+              <br />
+              <span className="gradient-text">accélérée par l'IA</span>
+            </h2>
+            <p className="text-slate-400 leading-relaxed">
+              Nous intégrons l'intelligence artificielle à notre façon de travailler pour aller
+              plus vite et soigner davantage les détails — jamais pour remplacer l'échange avec
+              vous.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {aiFeatures.map(({ icon: Icon, title, text }) => (
+              <div
+                key={title}
+                className="bg-slate-900/50 border border-slate-800/60 rounded-2xl p-7 text-center"
+              >
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mx-auto mb-5">
+                  <Icon className="w-6 h-6 text-cyan-400" />
+                </div>
+                <h3 style={{ fontFamily: 'Outfit, sans-serif' }} className="text-lg font-700 text-white mb-3">
+                  {title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/blog/ce-que-webmetier-vous-apporte/"
+              className="inline-flex items-center gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              En savoir plus sur notre approche
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
