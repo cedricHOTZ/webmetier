@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Map, ArrowUpRight, ChefHat, Scissors, Car, CalendarCheck, Puzzle } from 'lucide-react'
-import { routes } from '../seo.mjs'
+import { routes, blogPosts } from '../seo.mjs'
 
 const moduleLinks = [
   {
@@ -88,6 +88,24 @@ export default function Sitemap() {
                     <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                   <p className="text-sm text-slate-400 mt-1 leading-relaxed">{page.description}</p>
+                </li>
+              ))}
+            </ul>
+          </SitemapSection>
+
+          <SitemapSection title="Articles du blog">
+            <ul className="space-y-4">
+              {blogPosts.map((post) => (
+                <li key={post.path}>
+                  <Link
+                    to={post.path}
+                    className="text-white hover:text-cyan-400 font-600 transition-colors flex items-center gap-1 group"
+                    style={{ fontFamily: 'Outfit, sans-serif' }}
+                  >
+                    {post.heading}
+                    <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                  <p className="text-sm text-slate-400 mt-1 leading-relaxed">{post.excerpt}</p>
                 </li>
               ))}
             </ul>

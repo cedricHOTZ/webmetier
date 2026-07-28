@@ -2,7 +2,9 @@ import { build } from 'vite'
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { routes, siteUrl } from '../src/seo.mjs'
+import { routes, blogPosts, siteUrl } from '../src/seo.mjs'
+
+const allPages = [...routes, ...blogPosts]
 
 const root = path.dirname(fileURLToPath(import.meta.url)) + '/..'
 const ssrOutDir = 'dist-ssr'
@@ -44,12 +46,16 @@ async function main() {
     return html
   }
 
-  for (const route of routes) {
+  for (const route of allPages) {
     let html = renderPage(route.path, route)
     html = html.replace(
       '</title>',
       `</title>\n    <link rel="canonical" href="${siteUrl}${route.path}">`,
     )
+
+    if (route.date) {
+      html = html.replace('</head>', `${buildBlogPostingJsonLd(route)}\n  </head>`)
+    }
 
     const outDir = route.path === '/' ? path.join(root, 'dist') : path.join(root, 'dist', route.path)
     await mkdir(outDir, { recursive: true })
@@ -75,10 +81,24 @@ async function main() {
 
 function buildSitemap() {
   const today = new Date().toISOString().split('T')[0]
-  const urls = routes
-    .map((route) => `  <url>\n    <loc>${siteUrl}${route.path}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`)
+  const urls = allPages
+    .map((route) => `  <url>\n    <loc>${siteUrl}${route.path}</loc>\n    <lastmod>${route.date ?? today}</lastmod>\n  </url>`)
     .join('\n')
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
+}
+
+function buildBlogPostingJsonLd(post) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.heading,
+    description: post.description,
+    datePublished: post.date,
+    author: { '@type': 'Organization', name: 'WebMétier' },
+    publisher: { '@type': 'Organization', name: 'WebMétier', url: siteUrl },
+    mainEntityOfPage: `${siteUrl}${post.path}`,
+  }
+  return `    <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`
 }
 
 main().catch((err) => {

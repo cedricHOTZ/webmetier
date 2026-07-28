@@ -6,6 +6,7 @@ const pages = [
   { path: '/', label: 'Accueil' },
   { path: '/modules/', label: 'Modules Métier' },
   { path: '/portfolio/', label: 'Réalisations' },
+  { path: '/blog/', label: 'Blog' },
   { path: '/contact/', label: 'Contact' },
 ]
 

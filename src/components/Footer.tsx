@@ -42,6 +42,7 @@ export default function Footer() {
                 { label: 'E-commerce', path: '/' },
                 { label: 'Modules Métier', path: '/modules/' },
                 { label: 'Nos Réalisations', path: '/portfolio/' },
+                { label: 'Blog', path: '/blog/' },
                 { label: 'Maintenance & Support', path: '/contact/' },
               ].map((item) => (
                 <li key={item.label}>
