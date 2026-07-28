@@ -107,7 +107,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-xs">
-            © 2026 WebMétier. Tous droits réservés.
+            © 20262 WebMétier. Tous droits réservés.
           </p>
           <div className="flex gap-6">
   {[
